@@ -2,36 +2,32 @@ import User from '../models/user.model.js'
 
 export const createUser = async (req, res) => {
   try {
-  
+
     if (!req.session.user) {
-      return res.status(401).json({ message: "Unauthorized. Please login." });
+      return res.status(401).json({ message: "Please login first" });
     }
 
     if (req.session.user.role !== "admin") {
       return res.status(403).json({ 
-        message: "Access denied. Only admin can create users." 
-      });
-    }
-
-    if (req.body.role !== "employee") {
-      return res.status(400).json({
-        message: "Admin can only create employee role."
+        message: "Only admin can create users" 
       });
     }
 
     const user = await User.create(req.body);
+
     const totalUsers = await User.countDocuments();
 
     res.status(201).json({
-      message: "User registered successfully",
+      message: "User created successfully",
       data: user,
-      totalUsers,
+      totalUsers
     });
 
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 };
+
 
 // export const createUser = async (req, res) => {
 //   try {
