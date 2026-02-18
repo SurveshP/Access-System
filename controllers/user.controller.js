@@ -28,7 +28,7 @@ export const createUser = async (req, res) => {
   }
 };
 
-
+/* first add admin from this */
 // export const createUser = async (req, res) => {
 //   try {
 //     const user = await User.create(req.body);
